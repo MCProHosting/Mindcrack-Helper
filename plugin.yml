@@ -1,0 +1,16 @@
+name: MindcrackHelper
+version: 0.1
+description: A Bukkit plugin for the Mindcrack Marathon designed to implement base functionality.
+author: Matthew Salsamendi
+
+main: com.mcprohosting.plugins.mindcrack.Mindcrack;
+database: false
+
+commands:
+permissions:
+   mindcrack.*:
+     description: Allows all Mindcrack related commands
+     children:
+       mindcrack.changeblocks: true
+   mindcrack.changeblocks:
+     description: Allows the user to change blocks on the server
