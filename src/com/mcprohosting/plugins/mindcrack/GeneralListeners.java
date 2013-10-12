@@ -26,11 +26,11 @@ public class GeneralListeners implements Listener {
 
 	@EventHandler
 	public void onBlockBreakEvent(BlockBreakEvent event) {
-		event.setCancelled(HelperMethods.canChangeBlocks(event.getPlayer()));
+		event.setCancelled(UtilityMethods.canChangeBlocks(event.getPlayer()));
 	}
 
 	@EventHandler
 	public void onPlaceBreakEvent(BlockPlaceEvent event) {
-		event.setCancelled(HelperMethods.canChangeBlocks(event.getPlayer()));
+		event.setCancelled(UtilityMethods.canChangeBlocks(event.getPlayer()));
 	}
 }

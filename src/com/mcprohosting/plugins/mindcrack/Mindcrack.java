@@ -6,10 +6,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Mindcrack extends JavaPlugin {
 	public void onEnable() {
 		Bukkit.getPluginManager().registerEvents(new GeneralListeners(), this);
-		System.out.println(this.getName() + " Initialized");
+		getLogger().info("Initialized");
 	}
 
 	public void onDisable() {
-		System.out.println(this.getName() + " Disabled");
+		getLogger().info("Disabled");
 	}
 }
