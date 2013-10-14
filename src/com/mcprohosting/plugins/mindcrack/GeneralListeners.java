@@ -1,5 +1,7 @@
 package com.mcprohosting.plugins.mindcrack;
 
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -9,6 +11,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class GeneralListeners implements Listener {
 	@EventHandler
@@ -34,10 +37,17 @@ public class GeneralListeners implements Listener {
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
 		event.setJoinMessage(null);
-		event.getPlayer().teleport(Mindcrack.spawnLocation);
+		Player player = event.getPlayer();
+
+		player.teleport(Mindcrack.spawnLocation);
 
 		if (Mindcrack.serverType.equals(ServerType.MAINLOBBY)) {
-			event.getPlayer().sendMessage(Mindcrack.motd);
+			player.sendMessage(Mindcrack.motd);
+		}
+
+		if (!Mindcrack.serverType.equals(ServerType.GAMELOBBY)) {
+			player.getInventory().clear();
+			player.getInventory().setItem(0, new ItemStack(Material.COMPASS));
 		}
 	}
 

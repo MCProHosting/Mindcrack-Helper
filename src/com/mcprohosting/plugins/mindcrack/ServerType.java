@@ -1,5 +1,5 @@
 package com.mcprohosting.plugins.mindcrack;
 
 public enum ServerType {
-	MAINLOBBY,GAMELOBBY,CREATIVE
+	MAINLOBBY,GAMELOBBY,OTHER
 }
