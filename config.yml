@@ -1,0 +1,16 @@
+#Set the server type (mainlobby/gamelobby/creative)
+servertype: mainlobby
+
+#Set the default spawn point
+spawn:
+  x: 0
+  y: 0
+  z: 0
+  pitch: -180
+  yaw: 0
+
+#Set the MoTD
+motd:
+  - line1
+  - line2
+  - line3

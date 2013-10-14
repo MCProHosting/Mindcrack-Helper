@@ -4,9 +4,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByBlockEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class GeneralListeners implements Listener {
 	@EventHandler
@@ -15,22 +16,32 @@ public class GeneralListeners implements Listener {
 	}
 
 	@EventHandler
-	public void onEntityDamageEvent(EntityDamageByEntityEvent event) {
-		event.setCancelled(true);
-	}
-
-	@EventHandler
-	public void onBlockDamageEvent(EntityDamageByBlockEvent event) {
+	public void onDamage(EntityDamageEvent event) {
 		event.setCancelled(true);
 	}
 
 	@EventHandler
 	public void onBlockBreakEvent(BlockBreakEvent event) {
-		event.setCancelled(UtilityMethods.canChangeBlocks(event.getPlayer()));
+		event.setCancelled(!UtilityMethods.canChangeBlocks(event.getPlayer()));
 	}
 
 	@EventHandler
 	public void onPlaceBreakEvent(BlockPlaceEvent event) {
-		event.setCancelled(UtilityMethods.canChangeBlocks(event.getPlayer()));
+		event.setCancelled(!UtilityMethods.canChangeBlocks(event.getPlayer()));
+	}
+
+	@EventHandler
+	public void onJoin(PlayerJoinEvent event) {
+		event.setJoinMessage(null);
+		event.getPlayer().teleport(Mindcrack.spawnLocation);
+
+		if (Mindcrack.serverType.equals(ServerType.MAINLOBBY)) {
+			event.getPlayer().sendMessage(Mindcrack.motd);
+		}
+	}
+
+	@EventHandler
+	public void onLeave(PlayerQuitEvent event) {
+		event.setQuitMessage(null);
 	}
 }

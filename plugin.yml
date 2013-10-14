@@ -1,9 +1,9 @@
 name: MindcrackHelper
-version: 0.1
+version: 0.5
 description: A Bukkit plugin for the Mindcrack Marathon designed to implement base functionality.
 author: Matthew Salsamendi
 
-main: com.mcprohosting.plugins.mindcrack.Mindcrack;
+main: com.mcprohosting.plugins.mindcrack.Mindcrack
 database: false
 
 commands:
