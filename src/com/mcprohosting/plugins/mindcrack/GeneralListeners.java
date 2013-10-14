@@ -8,6 +8,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.weather.WeatherChangeEvent;
 
 public class GeneralListeners implements Listener {
 	@EventHandler
@@ -43,5 +44,10 @@ public class GeneralListeners implements Listener {
 	@EventHandler
 	public void onLeave(PlayerQuitEvent event) {
 		event.setQuitMessage(null);
+	}
+
+	@EventHandler
+	public void onRainStart(WeatherChangeEvent event) {
+		event.setCancelled(true);
 	}
 }
