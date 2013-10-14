@@ -1,5 +1,8 @@
-package com.mcprohosting.plugins.mindcrack;
+package com.mcprohosting.plugins.mindcrack.listeners;
 
+import com.mcprohosting.plugins.mindcrack.Mindcrack;
+import com.mcprohosting.plugins.mindcrack.ServerType;
+import com.mcprohosting.plugins.mindcrack.UtilityMethods;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -39,15 +42,16 @@ public class GeneralListeners implements Listener {
 		event.setJoinMessage(null);
 		Player player = event.getPlayer();
 
-		player.teleport(Mindcrack.spawnLocation);
+		player.teleport(Mindcrack.getSpawnLocation());
 
-		if (Mindcrack.serverType.equals(ServerType.MAINLOBBY)) {
+		if (Mindcrack.getServerType().equals(ServerType.MAINLOBBY)) {
 			player.sendMessage(Mindcrack.motd);
 		}
 
-		if (!Mindcrack.serverType.equals(ServerType.GAMELOBBY)) {
+		if (!Mindcrack.getServerType().equals(ServerType.GAME)) {
 			player.getInventory().clear();
 			player.getInventory().setItem(0, new ItemStack(Material.COMPASS));
+
 		}
 	}
 
