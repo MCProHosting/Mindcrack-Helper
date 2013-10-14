@@ -45,7 +45,7 @@ public class GeneralListeners implements Listener {
 		player.teleport(Mindcrack.getSpawnLocation());
 
 		if (Mindcrack.getServerType().equals(ServerType.MAINLOBBY)) {
-			player.sendMessage(Mindcrack.motd);
+			player.sendMessage(Mindcrack.getMotD());
 		}
 
 		if (!Mindcrack.getServerType().equals(ServerType.GAME)) {

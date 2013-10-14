@@ -20,12 +20,9 @@ public class InventoryListeners implements Listener {
 
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
-		System.out.println(event.getInventory());
-		System.out.println(UtilityMethods.getCompassInventory());
-
-		if (event.getInventory().equals(UtilityMethods.getCompassInventory())) {
+		if (event.getInventory().getContents().equals(UtilityMethods.getCompassInventory().getContents())) { //Better way to do this?
 			if (event.getCurrentItem().getType().equals(Material.BEACON)) {
-				UtilityMethods.redirect("hub", (Player) event.getWhoClicked());
+				UtilityMethods.redirectToServer("hub", (Player) event.getWhoClicked());
 			}
 
 			event.setCancelled(true);

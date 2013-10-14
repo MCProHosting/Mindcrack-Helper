@@ -6,6 +6,8 @@ author: Matthew Salsamendi
 main: com.mcprohosting.plugins.mindcrack.Mindcrack
 database: false
 
+depend: [LilyPad-Connect]
+
 commands:
 permissions:
    mindcrack.*:

@@ -1,4 +1,4 @@
-#Set the server type (mainlobby/gamelobby/other)
+#Set the server type (mainlobby/otherlobby/game)
 servertype: mainlobby
 
 #Set the default spawn point
