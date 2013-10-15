@@ -1,8 +1,11 @@
 package com.mcprohosting.plugins.mindcrack;
 
+import com.mcprohosting.plugins.mindcrack.commands.Spawn;
 import com.mcprohosting.plugins.mindcrack.listeners.GeneralListeners;
 import com.mcprohosting.plugins.mindcrack.listeners.InventoryListeners;
+
 import lilypad.client.connect.api.Connect;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.Plugin;
@@ -49,6 +52,7 @@ public class Mindcrack extends JavaPlugin {
 		}
 
 		//Setup commands
+		getCommand("spawn").setExecutor(new Spawn());
 
 		getLogger().info("TYPE: [" + serverType + "] Initialized");
 	}

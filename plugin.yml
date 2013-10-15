@@ -9,6 +9,10 @@ database: false
 depend: [LilyPad-Connect]
 
 commands:
+   spawn:
+     description: Teleport the player to the spawn location.
+     usage: /<command>
+     aliases: []
 permissions:
    mindcrack.*:
      description: Allows all Mindcrack related commands
