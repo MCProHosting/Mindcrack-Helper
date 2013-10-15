@@ -9,6 +9,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class InventoryListeners implements Listener {
+	//For checking if the player interacts with the compass
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -18,9 +19,10 @@ public class InventoryListeners implements Listener {
 		}
 	}
 
+	//For interacting with the compass inventory to teleport players to other servers
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
-		if (event.getInventory().getContents().equals(UtilityMethods.getCompassInventory().getContents())) { //Better way to do this?
+		if (event.getWhoClicked().getItemInHand().getType().equals(Material.COMPASS)) {
 			if (event.getCurrentItem().getType().equals(Material.BEACON)) {
 				UtilityMethods.redirectToServer("hub", (Player) event.getWhoClicked());
 			}

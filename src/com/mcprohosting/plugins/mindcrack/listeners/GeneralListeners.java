@@ -17,6 +17,8 @@ import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class GeneralListeners implements Listener {
+	//Self explanatory, handles general operations.
+
 	@EventHandler
 	public void onHungerEvent(FoodLevelChangeEvent event) {
 		event.setCancelled(true);
@@ -44,10 +46,12 @@ public class GeneralListeners implements Listener {
 
 		player.teleport(Mindcrack.getSpawnLocation());
 
+		//If this is the main lobby display MotD
 		if (Mindcrack.getServerType().equals(ServerType.MAINLOBBY)) {
 			player.sendMessage(Mindcrack.getMotD());
 		}
 
+		//If this is NOT a game instance then give them a compass so they can teleport.
 		if (!Mindcrack.getServerType().equals(ServerType.GAME)) {
 			player.getInventory().clear();
 			player.getInventory().setItem(0, new ItemStack(Material.COMPASS));
