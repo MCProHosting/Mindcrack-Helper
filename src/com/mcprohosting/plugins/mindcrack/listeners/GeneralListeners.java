@@ -21,30 +21,36 @@ public class GeneralListeners implements Listener {
 
 	@EventHandler
 	public void onHungerEvent(FoodLevelChangeEvent event) {
-		event.setCancelled(true);
+		if (!Mindcrack.getServerType().equals(ServerType.GAME)) {
+			event.setCancelled(true);
+		}
 	}
 
 	@EventHandler
 	public void onDamage(EntityDamageEvent event) {
-		event.setCancelled(true);
+		if (!Mindcrack.getServerType().equals(ServerType.GAME)) {
+			event.setCancelled(true);
+		}
 	}
 
 	@EventHandler
 	public void onBlockBreakEvent(BlockBreakEvent event) {
-		event.setCancelled(!UtilityMethods.canChangeBlocks(event.getPlayer()));
+		if (!Mindcrack.getServerType().equals(ServerType.GAME)) {
+			event.setCancelled(!UtilityMethods.canChangeBlocks(event.getPlayer()));
+		}
 	}
 
 	@EventHandler
 	public void onPlaceBreakEvent(BlockPlaceEvent event) {
-		event.setCancelled(!UtilityMethods.canChangeBlocks(event.getPlayer()));
+		if (!Mindcrack.getServerType().equals(ServerType.GAME)) {
+			event.setCancelled(!UtilityMethods.canChangeBlocks(event.getPlayer()));
+		}
 	}
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
 		event.setJoinMessage(null);
 		Player player = event.getPlayer();
-
-		player.teleport(Mindcrack.getSpawnLocation());
 
 		//If this is the main lobby display MotD
 		if (Mindcrack.getServerType().equals(ServerType.MAINLOBBY)) {
@@ -55,6 +61,7 @@ public class GeneralListeners implements Listener {
 		if (!Mindcrack.getServerType().equals(ServerType.GAME)) {
 			player.getInventory().clear();
 			player.getInventory().setItem(0, new ItemStack(Material.COMPASS));
+			player.teleport(Mindcrack.getSpawnLocation());
 
 		}
 	}

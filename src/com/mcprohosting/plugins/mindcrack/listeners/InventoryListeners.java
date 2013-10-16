@@ -23,8 +23,22 @@ public class InventoryListeners implements Listener {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
 		if (event.getWhoClicked().getItemInHand().getType().equals(Material.COMPASS)) {
-			if (event.getCurrentItem().getType().equals(Material.BEACON)) {
+			String displayName = event.getCurrentItem().getItemMeta().getDisplayName();
+
+			if (displayName.equals("Hub")) {
 				UtilityMethods.redirectToServer("hub", (Player) event.getWhoClicked());
+			} else if (displayName.equals("Creative #1")) {
+				UtilityMethods.redirectToServer("1-creative", (Player) event.getWhoClicked());
+			} else if (displayName.equals("Creative #2")) {
+				UtilityMethods.redirectToServer("2-creative", (Player) event.getWhoClicked());
+			} else if (displayName.equals("Survival #1")) {
+				UtilityMethods.redirectToServer("1-survival", (Player) event.getWhoClicked());
+			} else if (displayName.equals("Survival #2")) {
+				UtilityMethods.redirectToServer("2-survival", (Player) event.getWhoClicked());
+			} else if (displayName.equals("KotL Lobby #1")) {
+				UtilityMethods.redirectToServer("1-kotl-lobby", (Player) event.getWhoClicked());
+			} else if (displayName.equals("KotL Lobby #2")) {
+				UtilityMethods.redirectToServer("2-kotl-lobby", (Player) event.getWhoClicked());
 			}
 
 			event.setCancelled(true);

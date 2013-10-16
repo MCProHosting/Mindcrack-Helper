@@ -21,7 +21,35 @@ public class UtilityMethods {
 	//ONLY RUN THIS ONCE AT STARTUP to create and statically store an instance of Inventory for later use with the compass.
 	public static void setupCompassInventory() {
 		compassInventory = Mindcrack.getPlugin().getServer().createInventory(null, 9, "Teleport!");
-		compassInventory.setItem(0, new ItemStack(Material.BEACON));
+
+		ItemStack hubItem = new ItemStack(Material.BEACON);
+		hubItem.getItemMeta().setDisplayName("Hub");
+
+		ItemStack creativeItem1 = new ItemStack(Material.SAND);
+		creativeItem1.getItemMeta().setDisplayName("Creative #1");
+
+		ItemStack creativeItem2 = new ItemStack(Material.SAND);
+		creativeItem2.getItemMeta().setDisplayName("Creative #2");
+
+		ItemStack survivalItem1 = new ItemStack(Material.SKULL);
+		survivalItem1.getItemMeta().setDisplayName("Survival #1");
+
+		ItemStack survivalItem2 = new ItemStack(Material.SKULL);
+		survivalItem2.getItemMeta().setDisplayName("Survival #2");
+
+		ItemStack ladderItem1 = new ItemStack(Material.LADDER);
+		ladderItem1.getItemMeta().setDisplayName("KotL Lobby #1");
+
+		ItemStack ladderItem2 = new ItemStack(Material.LADDER);
+		ladderItem2.getItemMeta().setDisplayName("KotL Lobby #2");
+
+		compassInventory.setItem(0, hubItem);        //Hub
+		compassInventory.setItem(2, creativeItem1);  //Creative1
+		compassInventory.setItem(2, creativeItem2);  //Creative2
+		compassInventory.setItem(3, survivalItem1);  //Survival
+		compassInventory.setItem(3, survivalItem2);  //Survival
+		compassInventory.setItem(4, ladderItem1);    //Ladder
+		compassInventory.setItem(4, ladderItem2);    //Ladder
 	}
 
 	public static void redirectToServer(String server, final Player player) {

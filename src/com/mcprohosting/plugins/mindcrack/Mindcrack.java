@@ -4,6 +4,7 @@ import com.mcprohosting.plugins.mindcrack.commands.Spawn;
 import com.mcprohosting.plugins.mindcrack.listeners.GeneralListeners;
 import com.mcprohosting.plugins.mindcrack.listeners.InventoryListeners;
 
+import com.mcprohosting.plugins.mindcrack.teleporters.SignListeners;
 import lilypad.client.connect.api.Connect;
 
 import org.bukkit.Bukkit;
@@ -25,7 +26,6 @@ public class Mindcrack extends JavaPlugin {
 		//Setup configuration values.
 		this.saveDefaultConfig();
 		spawnLocation = new Location(Bukkit.getWorld("world"), this.getConfig().getDouble("spawn.x"), this.getConfig().getDouble("spawn.y"), this.getConfig().getDouble("spawn.z"), (float) this.getConfig().getDouble("spawn.pitch"), (float) this.getConfig().getDouble("spawn.yaw"));
-
 
 		//Declare server type
 		if (this.getConfig().getString("servertype").equalsIgnoreCase("mainlobby")) {
@@ -49,6 +49,10 @@ public class Mindcrack extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new GeneralListeners(), this);
 		if (!serverType.equals(ServerType.GAME)) {
 			Bukkit.getPluginManager().registerEvents(new InventoryListeners(), this);
+		}
+
+		if (serverType.equals(ServerType.OTHERLOBBY)) {
+			Bukkit.getPluginManager().registerEvents(new SignListeners(), this);
 		}
 
 		//Setup commands
