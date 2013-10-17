@@ -34,7 +34,6 @@ public class LeaderboardSigns {
 			Block block = signLocations.get(i - 1).getBlock();
 			if (block instanceof Sign) {
 				Sign sign = (Sign) block;
-				sign.setLine(0, "[#" + i + "]");
 				sign.setLine(1, player);
 				sign.setLine(3, topPlayers.get(player) + " Points");
 				i++;
@@ -45,11 +44,18 @@ public class LeaderboardSigns {
 	public static void addSign(Location location) {
 		signLocations.add(location);
 		saveSignsConfig();
+		
+		Sign sign = (Sign) location.getBlock();
+		sign.setLine(0, "[#" + signLocations.size() + "]");
 	}
 	
 	public static void removeSign(Location location) {
 		signLocations.remove(location);
 		saveSignsConfig();
+	}
+	
+	public static boolean isRegistered(Location location) {
+		return signLocations.contains(location);
 	}
 	
 	private static void saveSignsConfig() {

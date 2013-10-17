@@ -4,6 +4,7 @@ import com.mcprohosting.plugins.mindcrack.commands.GivePoints;
 import com.mcprohosting.plugins.mindcrack.commands.Spawn;
 import com.mcprohosting.plugins.mindcrack.listeners.GeneralListeners;
 import com.mcprohosting.plugins.mindcrack.listeners.InventoryListeners;
+import com.mcprohosting.plugins.mindcrack.listeners.LeaderboardSignListeners;
 import com.mcprohosting.plugins.mindcrack.teleporters.SignListeners;
 
 import lilypad.client.connect.api.Connect;
@@ -54,6 +55,10 @@ public class Mindcrack extends JavaPlugin {
 
 		if (serverType.equals(ServerType.OTHERLOBBY)) {
 			Bukkit.getPluginManager().registerEvents(new SignListeners(), this);
+		}
+		
+		if (serverType.equals(ServerType.MAINLOBBY)) {
+			Bukkit.getPluginManager().registerEvents(new LeaderboardSignListeners(), this);
 		}
 
 		//Setup commands
