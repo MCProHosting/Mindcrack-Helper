@@ -1,14 +1,15 @@
-package com.mcprohosting.plugins.mindcrack;
+package com.mcprohosting.plugins.mindcrack.utilities;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
+import com.mcprohosting.plugins.mindcrack.Mindcrack;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LeaderboardSigns {
 	private static ArrayList<Location> signLocations = new ArrayList<Location>();
@@ -59,7 +60,7 @@ public class LeaderboardSigns {
 	private static void saveSignsConfig() {
 		ConfigurationSection signs = new YamlConfiguration();
 		int i = 0;
-		
+
 		for (Location location : signLocations) {
 			ConfigurationSection sign = new YamlConfiguration();
 			sign.set("x", location.getBlockX());

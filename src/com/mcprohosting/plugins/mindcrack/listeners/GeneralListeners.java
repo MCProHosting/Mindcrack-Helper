@@ -1,8 +1,9 @@
 package com.mcprohosting.plugins.mindcrack.listeners;
 
+import com.mcprohosting.plugins.mindcrack.utilities.ChatFilters;
 import com.mcprohosting.plugins.mindcrack.Mindcrack;
 import com.mcprohosting.plugins.mindcrack.ServerType;
-import com.mcprohosting.plugins.mindcrack.UtilityMethods;
+import com.mcprohosting.plugins.mindcrack.utilities.UtilityMethods;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,6 +12,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -45,6 +47,11 @@ public class GeneralListeners implements Listener {
 		if (!Mindcrack.getServerType().equals(ServerType.GAME)) {
 			event.setCancelled(!UtilityMethods.canChangeBlocks(event.getPlayer()));
 		}
+	}
+
+	@EventHandler
+	public void onChat(AsyncPlayerChatEvent event) {
+		event.setCancelled(ChatFilters.chatAlowed(event.getPlayer(), event.getMessage()));
 	}
 
 	@EventHandler

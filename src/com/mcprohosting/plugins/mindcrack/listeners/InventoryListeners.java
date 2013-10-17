@@ -1,6 +1,6 @@
 package com.mcprohosting.plugins.mindcrack.listeners;
 
-import com.mcprohosting.plugins.mindcrack.UtilityMethods;
+import com.mcprohosting.plugins.mindcrack.utilities.UtilityMethods;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

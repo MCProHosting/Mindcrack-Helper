@@ -5,7 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import com.mcprohosting.plugins.mindcrack.UtilityMethods;
+import com.mcprohosting.plugins.mindcrack.utilities.UtilityMethods;
 
 public class GivePoints implements CommandExecutor {
 

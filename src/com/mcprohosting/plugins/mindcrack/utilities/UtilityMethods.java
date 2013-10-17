@@ -1,8 +1,8 @@
-package com.mcprohosting.plugins.mindcrack;
+package com.mcprohosting.plugins.mindcrack.utilities;
 
+import com.mcprohosting.plugins.mindcrack.Mindcrack;
 import lilypad.client.connect.api.request.RequestException;
 import lilypad.client.connect.api.request.impl.RedirectRequest;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class UtilityMethods {
 	private static Inventory compassInventory;
@@ -23,7 +22,7 @@ public class UtilityMethods {
 
 	//ONLY RUN THIS ONCE AT STARTUP to create and statically store an instance of Inventory for later use with the compass.
 	public static void setupCompassInventory() {
-		compassInventory = Mindcrack.getPlugin().getServer().createInventory(null, 9, "Teleport!");
+		compassInventory = Mindcrack.getPlugin().getServer().createInventory(null, 9, "Select a Destination:");
 
 		ItemStack hubItem = new ItemStack(Material.BEACON);
 		ItemMeta hubItemMeta = hubItem.getItemMeta();
@@ -75,21 +74,6 @@ public class UtilityMethods {
 		} catch (RequestException e) {
 			player.sendMessage(ChatColor.RED.toString() + "That server is current not available: " + e.getCause() + "!");
 		}
-	}
-
-	//Compiles a string for the message of the day based on a list of configuration values
-	public static String createMOTD(List<String> input) {
-		String motd = ChatColor.GREEN.toString();
-
-		for (int i = 0; i < input.size(); i++) {
-			if (i == input.size()-1) { //If it is the last element, do not append an additional line.
-				motd = motd + input.get(i);
-			} else {
-				motd = motd + input.get(i) + "\n";
-			}
-		}
-
-		return motd;
 	}
 
 	//Getters

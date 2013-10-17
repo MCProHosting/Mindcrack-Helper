@@ -14,3 +14,6 @@ motd:
   - line1
   - line2
   - line3
+
+#Minumum time in-between chats (in seconds):
+chattime: 10
