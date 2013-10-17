@@ -13,6 +13,9 @@ commands:
      description: Teleport the player to the spawn location.
      usage: /<command>
      aliases: []
+   givepoints:
+     description: Give points to a player.
+     usage: /<command> <player> <amount>
 permissions:
    mindcrack.*:
      description: Allows all Mindcrack related commands
@@ -20,3 +23,7 @@ permissions:
        mindcrack.changeblocks: true
    mindcrack.changeblocks:
      description: Allows the user to change blocks on the server
+     default: op
+   mindcrack.givepoints:
+     description: Allows the user to give players points using the /givepoints command.
+     default: op

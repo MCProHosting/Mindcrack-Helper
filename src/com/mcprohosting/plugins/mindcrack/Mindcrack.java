@@ -1,10 +1,11 @@
 package com.mcprohosting.plugins.mindcrack;
 
+import com.mcprohosting.plugins.mindcrack.commands.GivePoints;
 import com.mcprohosting.plugins.mindcrack.commands.Spawn;
 import com.mcprohosting.plugins.mindcrack.listeners.GeneralListeners;
 import com.mcprohosting.plugins.mindcrack.listeners.InventoryListeners;
-
 import com.mcprohosting.plugins.mindcrack.teleporters.SignListeners;
+
 import lilypad.client.connect.api.Connect;
 
 import org.bukkit.Bukkit;
@@ -57,6 +58,7 @@ public class Mindcrack extends JavaPlugin {
 
 		//Setup commands
 		getCommand("spawn").setExecutor(new Spawn());
+		getCommand("givepoints").setExecutor(new GivePoints());
 
 		getLogger().info("TYPE: [" + serverType + "] Initialized");
 	}
