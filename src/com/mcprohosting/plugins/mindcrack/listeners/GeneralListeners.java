@@ -23,28 +23,28 @@ public class GeneralListeners implements Listener {
 
 	@EventHandler
 	public void onHungerEvent(FoodLevelChangeEvent event) {
-		if (!Mindcrack.getServerType().equals(ServerType.GAME)) {
+		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void onDamage(EntityDamageEvent event) {
-		if (!Mindcrack.getServerType().equals(ServerType.GAME)) {
+		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void onBlockBreakEvent(BlockBreakEvent event) {
-		if (!Mindcrack.getServerType().equals(ServerType.GAME)) {
+		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
 			event.setCancelled(!UtilityMethods.canChangeBlocks(event.getPlayer()));
 		}
 	}
 
 	@EventHandler
 	public void onPlaceBreakEvent(BlockPlaceEvent event) {
-		if (!Mindcrack.getServerType().equals(ServerType.GAME)) {
+		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
 			event.setCancelled(!UtilityMethods.canChangeBlocks(event.getPlayer()));
 		}
 	}
@@ -60,15 +60,15 @@ public class GeneralListeners implements Listener {
 		Player player = event.getPlayer();
 
 		//If this is the main lobby display MotD
-		if (Mindcrack.getServerType().equals(ServerType.MAINLOBBY)) {
-			player.sendMessage(Mindcrack.getMotD());
+		if (Mindcrack.getPropConfig().getServerType().equals(ServerType.MAINLOBBY)) {
+			player.sendMessage(Mindcrack.getPropConfig().getMotd());
 		}
 
 		//If this is NOT a game instance then give them a compass so they can teleport.
-		if (!Mindcrack.getServerType().equals(ServerType.GAME)) {
+		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
 			player.getInventory().clear();
 			player.getInventory().setItem(0, new ItemStack(Material.COMPASS));
-			player.teleport(Mindcrack.getSpawnLocation());
+			player.teleport(Mindcrack.getPropConfig().getSpawnLocation());
 
 		}
 	}

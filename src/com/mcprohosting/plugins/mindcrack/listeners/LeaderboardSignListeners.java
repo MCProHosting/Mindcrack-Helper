@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-import com.mcprohosting.plugins.mindcrack.LeaderboardSigns;
+import com.mcprohosting.plugins.mindcrack.utilities.LeaderboardSigns;
 
 public class LeaderboardSignListeners implements Listener {
 

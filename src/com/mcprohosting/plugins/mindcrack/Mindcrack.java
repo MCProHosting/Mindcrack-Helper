@@ -40,7 +40,7 @@ public class Mindcrack extends JavaPlugin {
 			Bukkit.getPluginManager().registerEvents(new SignListeners(), this);
 		}
 		
-		if (serverType.equals(ServerType.MAINLOBBY)) {
+		if (propConfig.getServerType().equals(ServerType.MAINLOBBY)) {
 			Bukkit.getPluginManager().registerEvents(new LeaderboardSignListeners(), this);
 		}
 
