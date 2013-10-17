@@ -19,10 +19,12 @@ public class Spawn implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (sender instanceof Player) {
+			Player player = (Player) sender;
+
 			if (!Mindcrack.getServerType().equals(ServerType.GAME)) {
-				Player player = (Player) sender;
-				
 				player.teleport(Mindcrack.getSpawnLocation());
+			} else {
+				player.sendMessage(ChatColor.RED + "You cannot run that in a game instance!");
 			}
 		} else {
 			sender.sendMessage(ChatColor.RED + "This command can only be executed by a player.");
