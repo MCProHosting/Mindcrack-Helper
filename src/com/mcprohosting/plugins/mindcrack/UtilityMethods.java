@@ -10,6 +10,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class UtilityMethods {
@@ -102,5 +103,9 @@ public class UtilityMethods {
 	
 	public static void addPoints(String player, int points) {
 		//TODO: add to a player's points in the database
+	}
+	
+	public static HashMap<String, Integer> getTopPlayers(int n) {
+		return null; //TODO: get the top n players and their points from the database
 	}
 }

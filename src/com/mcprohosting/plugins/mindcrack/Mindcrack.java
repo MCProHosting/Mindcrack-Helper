@@ -59,6 +59,14 @@ public class Mindcrack extends JavaPlugin {
 		//Setup commands
 		getCommand("spawn").setExecutor(new Spawn());
 		getCommand("givepoints").setExecutor(new GivePoints());
+		
+		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			
+			@Override
+			public void run() {
+				LeaderboardSigns.updateSigns();
+			}
+		}, 100, 100);
 
 		getLogger().info("TYPE: [" + serverType + "] Initialized");
 	}

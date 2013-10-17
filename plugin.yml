@@ -27,3 +27,6 @@ permissions:
    mindcrack.givepoints:
      description: Allows the user to give players points using the /givepoints command.
      default: op
+   mindcrack.addleaderboardsign
+     description: Allows the user to add a dynamic leaderboard sign to a lobby
+     default: op
