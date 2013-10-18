@@ -1,8 +1,14 @@
 package com.mcprohosting.plugins.mindcrack.utilities;
 
 import com.mcprohosting.plugins.mindcrack.Mindcrack;
+
 import lilypad.client.connect.api.request.RequestException;
 import lilypad.client.connect.api.request.impl.RedirectRequest;
+import lilypad.client.connect.api.result.FutureResult;
+import lilypad.client.connect.api.result.StatusCode;
+import lilypad.client.connect.api.result.impl.RedirectResult;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -60,19 +66,25 @@ public class UtilityMethods {
 		ladderItem2.setItemMeta(ladderItem2Meta);
 
 		compassInventory.setItem(0, hubItem);        //Hub
-		compassInventory.setItem(2, creativeItem1);  //Creative1
+		compassInventory.setItem(1, creativeItem1);  //Creative1
 		compassInventory.setItem(2, creativeItem2);  //Creative2
 		compassInventory.setItem(3, survivalItem1);  //Survival
-		compassInventory.setItem(3, survivalItem2);  //Survival
-		compassInventory.setItem(4, ladderItem1);    //Ladder
-		compassInventory.setItem(4, ladderItem2);    //Ladder
+		compassInventory.setItem(4, survivalItem2);  //Survival
+		compassInventory.setItem(5, ladderItem1);    //Ladder
+		compassInventory.setItem(6, ladderItem2);    //Ladder
 	}
 
 	public static void redirectToServer(String server, final Player player) {
 		try {
-			Mindcrack.getConnect().request(new RedirectRequest(server, player.getName()));
+			FutureResult<RedirectResult> futureResult = Mindcrack.getConnect().request(new RedirectRequest(server, player.getName()));
+			RedirectResult result = futureResult.await(5000L);
+			if (!result.getStatusCode().equals(StatusCode.SUCCESS)) {
+				Bukkit.getLogger().warning("RedirectRequest failed for player: " + player.getName());
+			}
 		} catch (RequestException e) {
 			player.sendMessage(ChatColor.RED.toString() + "That server is current not available: " + e.getCause() + "!");
+		} catch (InterruptedException e) {
+			Bukkit.getLogger().warning("RedirectRequest interrupted for player: " + player.getName());
 		}
 	}
 
