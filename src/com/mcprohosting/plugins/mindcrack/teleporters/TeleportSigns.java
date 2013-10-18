@@ -1,7 +1,6 @@
 package com.mcprohosting.plugins.mindcrack.teleporters;
 
-import java.util.HashMap;
-
+import com.mcprohosting.plugins.mindcrack.Mindcrack;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -9,13 +8,13 @@ import org.bukkit.block.Sign;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import com.mcprohosting.plugins.mindcrack.Mindcrack;
+import java.util.HashMap;
 
 public class TeleportSigns {
 	private static HashMap<String, Location> signLocations = new HashMap<String, Location>();
 	private static HashMap<String, String> serverStatus = new HashMap<String, String>();
 	
-	// run this once on startup to load the locations of the leaderboard signs from file
+	// Run this once on startup to load the locations of the leaderboard signs from file
 	public static void initializeSigns() {
 		ConfigurationSection signs = Mindcrack.getPlugin().getConfig().getConfigurationSection("teleport-signs");
 		if (signs == null) {

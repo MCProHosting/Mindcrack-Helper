@@ -33,6 +33,8 @@ public class TeleportSignListeners implements Listener {
 				TeleportSigns.addSign(event.getLine(0).substring(4, 5) + "-kotl", event.getBlock().getLocation());
 				event.getPlayer().sendMessage("Teleport sign added.");
 			}
+		} else {
+			event.setCancelled(true);
 		}
 	}
 	

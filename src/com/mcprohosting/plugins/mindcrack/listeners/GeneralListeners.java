@@ -1,10 +1,11 @@
 package com.mcprohosting.plugins.mindcrack.listeners;
 
-import com.mcprohosting.plugins.mindcrack.database.DatabaseManager;
-import com.mcprohosting.plugins.mindcrack.utilities.ChatFilters;
 import com.mcprohosting.plugins.mindcrack.Mindcrack;
 import com.mcprohosting.plugins.mindcrack.ServerType;
+import com.mcprohosting.plugins.mindcrack.database.DatabaseManager;
+import com.mcprohosting.plugins.mindcrack.utilities.ChatFilters;
 import com.mcprohosting.plugins.mindcrack.utilities.UtilityMethods;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -52,7 +53,7 @@ public class GeneralListeners implements Listener {
 
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent event) {
-		event.setCancelled(ChatFilters.chatAlowed(event.getPlayer(), event.getMessage()));
+		event.setCancelled(!ChatFilters.chatAllowed(event.getPlayer(), event.getMessage()));
 	}
 
 	@EventHandler
@@ -68,10 +69,9 @@ public class GeneralListeners implements Listener {
 		//If this is the main lobby display MotD
 		if (Mindcrack.getPropConfig().getServerType().equals(ServerType.MAINLOBBY)) {
 			player.sendMessage(Mindcrack.getPropConfig().getMotd());
-		}
-
-		//If this is NOT a game instance then give them a compass so they can teleport.
-		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
+		} else if (Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
+			player.sendMessage(ChatColor.GREEN + "To get back to the main lobby type /server hub or go through the portal!");
+		} else if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
 			player.getInventory().clear();
 			player.getInventory().setItem(0, new ItemStack(Material.COMPASS));
 			player.teleport(Mindcrack.getPropConfig().getSpawnLocation());

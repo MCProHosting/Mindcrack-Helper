@@ -1,41 +1,25 @@
 package com.mcprohosting.plugins.mindcrack.utilities;
 
-import com.mcprohosting.plugins.mindcrack.Mindcrack;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class ChatFilters {
 	private static Character[] checkedCharacters = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '.', ',', };
 	private static LinkedHashMap<Character, Integer> characterMap = new LinkedHashMap<Character, Integer>();
-	private static ArrayList<String> recentChatters = new ArrayList<String>();
 
-	public static boolean chatAlowed(final Player player, final String message) {
-		if (!player.hasPermission("mindcrack.chat.bypass")) {
-			if (messageIsCaps(message)) {
-				player.sendMessage(ChatColor.RED + "Your message cannot contains that many caps!");
-				return false;
-			} else if (messageIsPrimarlyOneCharacter(message)) {
-				player.sendMessage(ChatColor.RED + "Your message contains too many of the same characters.");
-				return false;
-			}
+	public static boolean chatAllowed(final Player player, final String message) {
+		if (player.hasPermission("mindcrack.chat.bypass")) {
+			return true;
+		}
 
-			if (recentChatters.contains(player.getName())) {
-				player.sendMessage(ChatColor.RED + "Please wait " + Mindcrack.getPropConfig().getChatTime() + "s between messages.");
-				return false;
-			} else {
-				recentChatters.add(player.getName());
-
-				Bukkit.getScheduler().scheduleSyncRepeatingTask(Mindcrack.getPlugin(), new Runnable() {
-					@Override
-					public void run() {
-						recentChatters.remove(player.getName());
-					}
-				}, Mindcrack.getPropConfig().getChatTime()*20, Mindcrack.getPropConfig().getChatTime()*20);
-			}
+		if (messageIsCaps(message)) {
+			player.sendMessage(ChatColor.RED + "Your message cannot contains that many caps!");
+			return false;
+		} else if (messageIsPrimarlyOneCharacter(message)) {
+			player.sendMessage(ChatColor.RED + "Your message contains too many of the same characters.");
+			return false;
 		}
 
 		return true;
