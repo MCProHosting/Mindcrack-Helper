@@ -1,12 +1,15 @@
 package com.mcprohosting.plugins.mindcrack.database;
 
 import com.mcprohosting.plugins.mindcrack.Mindcrack;
+
 import org.bukkit.Bukkit;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseManager {
 	public void init() {
@@ -114,6 +117,32 @@ public class DatabaseManager {
 			Mindcrack.getPlugin().getLogger().info("Could not retrieve a players points");
 		}
 
+		return retVal;
+	}
+	
+	public static List<String> getTopPlayers(int n) {
+		ArrayList<String> retVal = new ArrayList<String>();
+		
+		Connection connection = getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			ps = connection.prepareStatement("SELECT player, global FROM players ORDER BY global DESC LIMIT ?");
+			ps.setInt(1, n);
+			rs = ps.executeQuery();
+			
+			while (rs.next() != false) {
+				retVal.add(rs.getString("player") + " " + rs.getInt("global"));
+			}
+			
+			ps.close();
+			rs.close();
+			connection.close();
+		} catch (SQLException ex) {
+			Mindcrack.getPlugin().getLogger().info("Could not retrieve the top " + n + " players.");
+		}
+		
 		return retVal;
 	}
 }

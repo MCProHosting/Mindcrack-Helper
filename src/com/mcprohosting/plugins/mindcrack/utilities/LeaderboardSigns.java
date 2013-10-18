@@ -1,6 +1,7 @@
 package com.mcprohosting.plugins.mindcrack.utilities;
 
 import com.mcprohosting.plugins.mindcrack.Mindcrack;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Sign;
@@ -8,7 +9,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 public class LeaderboardSigns {
 	private static ArrayList<Location> signLocations = new ArrayList<Location>();
@@ -27,14 +28,14 @@ public class LeaderboardSigns {
 	}
 	
 	public static void updateSigns() {
-		HashMap<String, Integer> topPlayers = UtilityMethods.getTopPlayers(signLocations.size());
+		List<String> topPlayers = UtilityMethods.getTopPlayers(signLocations.size());
 		int i = 1;
 		
-		for (String player : topPlayers.keySet()) {
+		for (String entry : topPlayers) {
 			Sign sign = (Sign) signLocations.get(i - 1).getBlock().getState();
 			sign.setLine(0, "[#" + i + "]");
-			sign.setLine(1, player);
-			sign.setLine(3, topPlayers.get(player) + " Points");
+			sign.setLine(1, entry.split("\\s+")[0]);
+			sign.setLine(3, entry.split("\\s+")[1] + " Points");
 			sign.update(true);
 			i++;
 		}

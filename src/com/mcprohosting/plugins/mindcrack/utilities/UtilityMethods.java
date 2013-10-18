@@ -1,8 +1,8 @@
 package com.mcprohosting.plugins.mindcrack.utilities;
 
 import com.mcprohosting.plugins.mindcrack.Mindcrack;
-
 import com.mcprohosting.plugins.mindcrack.database.DatabaseManager;
+
 import lilypad.client.connect.api.request.RequestException;
 import lilypad.client.connect.api.request.impl.RedirectRequest;
 import lilypad.client.connect.api.result.FutureResult;
@@ -17,7 +17,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.HashMap;
+import java.util.List;
 
 public class UtilityMethods {
 	private static Inventory compassInventory;
@@ -102,7 +102,7 @@ public class UtilityMethods {
 		DatabaseManager.addPoints(player, points);
 	}
 	
-	public static HashMap<String, Integer> getTopPlayers(int n) {
-		return null; //TODO: get the top n players and their points from the database
+	public static List<String> getTopPlayers(int n) {
+		return DatabaseManager.getTopPlayers(n);
 	}
 }

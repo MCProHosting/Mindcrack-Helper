@@ -13,6 +13,7 @@ import com.mcprohosting.plugins.mindcrack.Mindcrack;
 
 public class TeleportSigns {
 	private static HashMap<String, Location> signLocations = new HashMap<String, Location>();
+	private static HashMap<String, String> serverStatus = new HashMap<String, String>();
 	
 	// run this once on startup to load the locations of the leaderboard signs from file
 	public static void initializeSigns() {
@@ -23,6 +24,7 @@ public class TeleportSigns {
 			for (String key : signs.getKeys(false)) {
 				ConfigurationSection section = signs.getConfigurationSection(key);
 				signLocations.put(key, new Location(Bukkit.getWorlds().get(0), section.getInt("x"), section.getInt("y"), section.getInt("z")));
+				serverStatus.put(key, "0/0");
 			}
 		}
 	}
@@ -32,9 +34,13 @@ public class TeleportSigns {
 			Block block = signLocations.get(key).getBlock();
 			Sign sign = (Sign) block.getState();
 			sign.setLine(0, "KotL #" + key.substring(0, 1));
-			//TODO: update with the number of players in the game server
+			sign.setLine(2, serverStatus.get(key));
 			sign.update(true);
 		}
+	}
+	
+	public static void updateStatus(String server, String status) {
+		serverStatus.put(server, status);
 	}
 	
 	public static void addSign(String server, Location location) {
