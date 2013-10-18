@@ -22,7 +22,8 @@ public class InventoryListeners implements Listener {
 	//For interacting with the compass inventory to teleport players to other servers
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
-		if (event.getWhoClicked().getItemInHand().getType().equals(Material.COMPASS)) {
+		if (event.getWhoClicked().getItemInHand().getType().equals(Material.COMPASS) ||
+				event.getWhoClicked().getItemInHand().getType().equals(Material.AIR)) {
 			String displayName = event.getCurrentItem().getItemMeta().getDisplayName();
 
 			if (displayName.equals("Hub")) {
