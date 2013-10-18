@@ -90,4 +90,30 @@ public class DatabaseManager {
 
 		return retVal;
 	}
+
+	public static int getPoints(String player) {
+		int retVal = 0;
+
+		Connection connection = getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			ps = connection.prepareStatement("SELECT global FROM players WHERE LOWER(player)=LOWER(?)");
+			ps.setString(1, player);
+			rs = ps.executeQuery();
+
+			while (rs.next() != false) {
+				retVal = rs.getInt(1);
+			}
+
+			ps.close();
+			rs.close();
+			connection.close();
+		} catch (SQLException ex) {
+			Mindcrack.getPlugin().getLogger().info("Could not retrieve a players points");
+		}
+
+		return retVal;
+	}
 }

@@ -1,5 +1,6 @@
 package com.mcprohosting.plugins.mindcrack.listeners;
 
+import com.mcprohosting.plugins.mindcrack.database.DatabaseManager;
 import com.mcprohosting.plugins.mindcrack.utilities.ChatFilters;
 import com.mcprohosting.plugins.mindcrack.Mindcrack;
 import com.mcprohosting.plugins.mindcrack.ServerType;
@@ -58,6 +59,11 @@ public class GeneralListeners implements Listener {
 	public void onJoin(PlayerJoinEvent event) {
 		event.setJoinMessage(null);
 		Player player = event.getPlayer();
+
+		// Check if the player exists in the database
+		if (!DatabaseManager.containsPlayer(event.getPlayer().getName())) {
+			DatabaseManager.addPlayer(event.getPlayer().getName());
+		}
 
 		//If this is the main lobby display MotD
 		if (Mindcrack.getPropConfig().getServerType().equals(ServerType.MAINLOBBY)) {

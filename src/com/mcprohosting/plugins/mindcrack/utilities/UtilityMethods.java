@@ -95,11 +95,10 @@ public class UtilityMethods {
 	}
 	
 	public static int getPoints(String player) {
-		return 0; //TODO: get a player's points from database
+		return DatabaseManager.getPoints(player);
 	}
 	
 	public static void addPoints(String player, int points) {
-		//TODO: add to a player's points in the database
 		DatabaseManager.addPoints(player, points);
 	}
 	
