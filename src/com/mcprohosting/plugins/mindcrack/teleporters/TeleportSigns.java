@@ -48,7 +48,13 @@ public class TeleportSigns {
 	}
 	
 	public static boolean isRegistered(Location location) {
-		return signLocations.values().contains(location);
+		for (String key : signLocations.keySet()) {
+			if (signLocations.get(key).distance(location) < 1) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	public static boolean isRegistered(String serverName) {
