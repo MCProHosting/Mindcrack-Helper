@@ -24,8 +24,12 @@ public class InventoryListeners implements Listener {
 	public void onInventoryClick(InventoryClickEvent event) {
 		if (event.getWhoClicked().getItemInHand().getType().equals(Material.COMPASS) ||
 				event.getWhoClicked().getItemInHand().getType().equals(Material.AIR)) {
-			String displayName = event.getCurrentItem().getItemMeta().getDisplayName();
-
+			String displayName = "";
+			try {
+				 displayName = event.getCurrentItem().getItemMeta().getDisplayName();
+			} catch (NullPointerException e) {
+				displayName = "";
+			}
 			if (displayName.equals("Hub")) {
 				UtilityMethods.redirectToServer("hub", (Player) event.getWhoClicked());
 			} else if (displayName.equals("Creative #1")) {
