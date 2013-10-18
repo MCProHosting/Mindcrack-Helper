@@ -21,15 +21,19 @@ public class Spawn implements CommandExecutor {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
 
-			if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
-				player.teleport(Mindcrack.getPropConfig().getSpawnLocation());
+			if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.SURVIVAL)) {
+				if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
+					player.teleport(Mindcrack.getPropConfig().getSpawnLocation());
+				} else {
+					player.sendMessage(ChatColor.RED + "You cannot run that in a game instance!");
+				}
 			} else {
-				player.sendMessage(ChatColor.RED + "You cannot run that in a game instance!");
+				player.sendMessage(ChatColor.RED + "You cannot run /spawn at lobby. To leave type /server hub");
 			}
 		} else {
 			sender.sendMessage(ChatColor.RED + "This command can only be executed by a player.");
 		}
-		
+
 		return true;
 	}
 }

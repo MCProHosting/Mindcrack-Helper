@@ -80,15 +80,17 @@ public class GeneralListeners implements Listener {
 		//If this is the main lobby display MotD
 		if (Mindcrack.getPropConfig().getServerType().equals(ServerType.MAINLOBBY)) {
 			player.sendMessage(Mindcrack.getPropConfig().getMotd());
-		} else if (Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
+		} else if (Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME) || Mindcrack.getPropConfig().getServerType().equals(ServerType.SURVIVAL)) {
 			player.sendMessage(ChatColor.GREEN + "To get back to the main lobby type /server hub or go through the portal!");
 		}
 
 		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)  && !Mindcrack.getPropConfig().getServerType().equals(ServerType.SURVIVAL)) {
 			player.getInventory().clear();
 			player.getInventory().setItem(0, new ItemStack(Material.COMPASS));
-			player.teleport(Mindcrack.getPropConfig().getSpawnLocation());
+		}
 
+		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
+			player.teleport(Mindcrack.getPropConfig().getSpawnLocation());
 		}
 	}
 
