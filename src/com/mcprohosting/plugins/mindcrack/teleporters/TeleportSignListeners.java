@@ -31,6 +31,7 @@ public class TeleportSignListeners implements Listener {
 		if (event.getPlayer().hasPermission("mindcrack.editteleportsigns")) {
 			if (event.getLine(0).matches("\\[tp [1-8]\\]")) {
 				TeleportSigns.addSign(event.getLine(0).substring(4, 5) + "-kotl", event.getBlock().getLocation());
+				event.getPlayer().sendMessage("Teleport sign added.");
 			}
 		}
 	}

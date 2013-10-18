@@ -3,7 +3,6 @@ package com.mcprohosting.plugins.mindcrack.teleporters;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -31,13 +30,10 @@ public class TeleportSigns {
 	public static void updateSigns() {
 		for (String key : signLocations.keySet()) {
 			Block block = signLocations.get(key).getBlock();
-			if (block instanceof Sign) {
-				Sign sign = (Sign) block;
-				sign.setLine(0, "KingOfTheLadder");
-				sign.setLine(1, key);
-				//TODO: update with the number of players in the game server
-				sign.setLine(3, ChatColor.BLUE + "[Join]");
-			}
+			Sign sign = (Sign) block.getState();
+			sign.setLine(0, "KotL #" + key.substring(0, 1));
+			//TODO: update with the number of players in the game server
+			sign.update(true);
 		}
 	}
 	
@@ -61,7 +57,7 @@ public class TeleportSigns {
 	
 	public static String getServerName(Location location) {
 		for (String key : signLocations.keySet()) {
-			if (signLocations.get(key).equals(location)) {
+			if (signLocations.get(key).distance(location) < 1) {
 				return key;
 			}
 		}
