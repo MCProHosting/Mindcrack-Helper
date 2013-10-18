@@ -3,7 +3,6 @@ package com.mcprohosting.plugins.mindcrack.utilities;
 import com.mcprohosting.plugins.mindcrack.Mindcrack;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -32,14 +31,12 @@ public class LeaderboardSigns {
 		int i = 1;
 		
 		for (String player : topPlayers.keySet()) {
-			Block block = signLocations.get(i - 1).getBlock();
-			if (block instanceof Sign) {
-				Sign sign = (Sign) block;
-				sign.setLine(0, "[#" + i + "]");
-				sign.setLine(1, player);
-				sign.setLine(3, topPlayers.get(player) + " Points");
-				i++;
-			}
+			Sign sign = (Sign) signLocations.get(i - 1).getBlock().getState();
+			sign.setLine(0, "[#" + i + "]");
+			sign.setLine(1, player);
+			sign.setLine(3, topPlayers.get(player) + " Points");
+			sign.update(true);
+			i++;
 		}
 	}
 	
