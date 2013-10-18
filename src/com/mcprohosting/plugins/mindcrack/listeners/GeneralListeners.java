@@ -18,6 +18,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -32,6 +33,11 @@ public class GeneralListeners implements Listener {
 				UtilityMethods.addPoints(killer.getName(), 15);
 			}
 		}
+	}
+
+	@EventHandler
+	public void onRespawnEvent(PlayerRespawnEvent event) {
+		event.getPlayer().teleport(Mindcrack.getPropConfig().getSpawnLocation());
 	}
 
 	@EventHandler
