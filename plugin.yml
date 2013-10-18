@@ -22,11 +22,14 @@ permissions:
      children:
        mindcrack.changeblocks: true
    mindcrack.changeblocks:
-     description: Allows the user to change blocks on the server
+     description: Allows the user to change blocks on the server.
      default: op
    mindcrack.givepoints:
      description: Allows the user to give players points using the /givepoints command.
      default: op
-   mindcrack.editleaderboardsigns
-     description: Allows the user to add and remove dynamic leaderboard signs in the main lobby
+   mindcrack.editleaderboardsigns:
+     description: Allows the user to add and remove dynamic leaderboard signs in the main lobby.
+     default: op
+   mindcrack.chat.bypass:
+     description: Allows the user to bypass the chat filter.
      default: op
