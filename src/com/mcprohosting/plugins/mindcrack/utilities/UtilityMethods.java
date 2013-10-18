@@ -2,6 +2,7 @@ package com.mcprohosting.plugins.mindcrack.utilities;
 
 import com.mcprohosting.plugins.mindcrack.Mindcrack;
 
+import com.mcprohosting.plugins.mindcrack.database.DatabaseManager;
 import lilypad.client.connect.api.request.RequestException;
 import lilypad.client.connect.api.request.impl.RedirectRequest;
 import lilypad.client.connect.api.result.FutureResult;
@@ -99,6 +100,7 @@ public class UtilityMethods {
 	
 	public static void addPoints(String player, int points) {
 		//TODO: add to a player's points in the database
+		DatabaseManager.addPoints(player, points);
 	}
 	
 	public static HashMap<String, Integer> getTopPlayers(int n) {

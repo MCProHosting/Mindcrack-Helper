@@ -2,6 +2,8 @@ package com.mcprohosting.plugins.mindcrack;
 
 import com.mcprohosting.plugins.mindcrack.commands.GivePoints;
 import com.mcprohosting.plugins.mindcrack.commands.Spawn;
+import com.mcprohosting.plugins.mindcrack.database.Database;
+import com.mcprohosting.plugins.mindcrack.database.DatabaseManager;
 import com.mcprohosting.plugins.mindcrack.listeners.GeneralListeners;
 import com.mcprohosting.plugins.mindcrack.listeners.InventoryListeners;
 import com.mcprohosting.plugins.mindcrack.listeners.LeaderboardSignListeners;
@@ -10,9 +12,7 @@ import com.mcprohosting.plugins.mindcrack.teleporters.TeleportSigns;
 import com.mcprohosting.plugins.mindcrack.utilities.Configuration;
 import com.mcprohosting.plugins.mindcrack.utilities.LeaderboardSigns;
 import com.mcprohosting.plugins.mindcrack.utilities.UtilityMethods;
-
 import lilypad.client.connect.api.Connect;
-
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,6 +21,8 @@ public class Mindcrack extends JavaPlugin {
 	private static Plugin plugin;
 	private static Connect connect;
 	private static Configuration propConfig;
+	private static Database database;
+	private static DatabaseManager databaseManager;
 
 	public void onEnable() {
 		//Allow this to be access statically
@@ -48,6 +50,10 @@ public class Mindcrack extends JavaPlugin {
 			LeaderboardSigns.initializeSigns();
 			Bukkit.getPluginManager().registerEvents(new LeaderboardSignListeners(), this);
 		}
+
+		// Setup database
+		database = new Database();
+		databaseManager = new DatabaseManager();
 
 		//Setup commands
 		getCommand("spawn").setExecutor(new Spawn());
@@ -93,5 +99,9 @@ public class Mindcrack extends JavaPlugin {
 
 	public static Configuration getPropConfig() {
 		return propConfig;
+	}
+
+	public static Database getDB() {
+		return database;
 	}
 }
