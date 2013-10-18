@@ -28,7 +28,7 @@ public class Spawn implements CommandExecutor {
 					player.sendMessage(ChatColor.RED + "You cannot run that in a game instance!");
 				}
 			} else {
-				player.sendMessage(ChatColor.RED + "You cannot run /spawn at lobby. To leave type /server hub");
+				player.sendMessage(ChatColor.RED + "You cannot run /spawn in a survival instance. To leave type /server hub");
 			}
 		} else {
 			sender.sendMessage(ChatColor.RED + "This command can only be executed by a player.");
