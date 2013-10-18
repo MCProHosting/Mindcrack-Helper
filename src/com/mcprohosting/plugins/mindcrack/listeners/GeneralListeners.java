@@ -14,6 +14,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -23,30 +24,40 @@ import org.bukkit.inventory.ItemStack;
 public class GeneralListeners implements Listener {
 	//Self explanatory, handles general operations.
 
+	public void onDeath(PlayerDeathEvent event) {
+		if (Mindcrack.getPropConfig().getServerType().equals(ServerType.SURVIVAL)) {
+			if (event.getEntity().getKiller() instanceof Player) {
+				Player killer = event.getEntity().getKiller();
+
+				UtilityMethods.addPoints(killer.getName(), 15);
+			}
+		}
+	}
+
 	@EventHandler
 	public void onHungerEvent(FoodLevelChangeEvent event) {
-		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
+		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME) && !Mindcrack.getPropConfig().getServerType().equals(ServerType.SURVIVAL)) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void onDamage(EntityDamageEvent event) {
-		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
+		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME) && !Mindcrack.getPropConfig().getServerType().equals(ServerType.SURVIVAL)) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void onBlockBreakEvent(BlockBreakEvent event) {
-		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
+		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)  && !Mindcrack.getPropConfig().getServerType().equals(ServerType.SURVIVAL)) {
 			event.setCancelled(!UtilityMethods.canChangeBlocks(event.getPlayer()));
 		}
 	}
 
 	@EventHandler
 	public void onPlaceBreakEvent(BlockPlaceEvent event) {
-		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
+		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)  && !Mindcrack.getPropConfig().getServerType().equals(ServerType.SURVIVAL)) {
 			event.setCancelled(!UtilityMethods.canChangeBlocks(event.getPlayer()));
 		}
 	}
@@ -71,7 +82,7 @@ public class GeneralListeners implements Listener {
 			player.sendMessage(Mindcrack.getPropConfig().getMotd());
 		} else if (Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
 			player.sendMessage(ChatColor.GREEN + "To get back to the main lobby type /server hub or go through the portal!");
-		} else if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)) {
+		} else if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME)  && !Mindcrack.getPropConfig().getServerType().equals(ServerType.SURVIVAL)) {
 			player.getInventory().clear();
 			player.getInventory().setItem(0, new ItemStack(Material.COMPASS));
 			player.teleport(Mindcrack.getPropConfig().getSpawnLocation());
