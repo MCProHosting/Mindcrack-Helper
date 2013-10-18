@@ -5,11 +5,14 @@ import com.mcprohosting.plugins.mindcrack.commands.Spawn;
 import com.mcprohosting.plugins.mindcrack.listeners.GeneralListeners;
 import com.mcprohosting.plugins.mindcrack.listeners.InventoryListeners;
 import com.mcprohosting.plugins.mindcrack.listeners.LeaderboardSignListeners;
-import com.mcprohosting.plugins.mindcrack.teleporters.SignListeners;
+import com.mcprohosting.plugins.mindcrack.teleporters.TeleportSignListeners;
+import com.mcprohosting.plugins.mindcrack.teleporters.TeleportSigns;
 import com.mcprohosting.plugins.mindcrack.utilities.Configuration;
 import com.mcprohosting.plugins.mindcrack.utilities.LeaderboardSigns;
 import com.mcprohosting.plugins.mindcrack.utilities.UtilityMethods;
+
 import lilypad.client.connect.api.Connect;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -37,10 +40,12 @@ public class Mindcrack extends JavaPlugin {
 		}
 
 		if (propConfig.getServerType().equals(ServerType.OTHERLOBBY)) {
-			Bukkit.getPluginManager().registerEvents(new SignListeners(), this);
+			TeleportSigns.initializeSigns();
+			Bukkit.getPluginManager().registerEvents(new TeleportSignListeners(), this);
 		}
 		
 		if (propConfig.getServerType().equals(ServerType.MAINLOBBY)) {
+			LeaderboardSigns.initializeSigns();
 			Bukkit.getPluginManager().registerEvents(new LeaderboardSignListeners(), this);
 		}
 
@@ -49,13 +54,25 @@ public class Mindcrack extends JavaPlugin {
 		getCommand("givepoints").setExecutor(new GivePoints());
 
 		//Timerz
-		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-			
-			@Override
-			public void run() {
-				LeaderboardSigns.updateSigns();
-			}
-		}, 100, 100);
+		if (propConfig.getServerType().equals(ServerType.MAINLOBBY)) {
+			getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+				
+				@Override
+				public void run() {
+					LeaderboardSigns.updateSigns();
+				}
+			}, 100, 100);
+		}
+		
+		if (propConfig.getServerType().equals(ServerType.OTHERLOBBY)) {
+			getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+				
+				@Override
+				public void run() {
+					TeleportSigns.updateSigns();
+				}
+			}, 20, 20);
+		}
 
 		//Done!
 		getLogger().info("TYPE: [" + propConfig.getServerType() + "] Initialized");

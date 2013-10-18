@@ -1,0 +1,87 @@
+package com.mcprohosting.plugins.mindcrack.teleporters;
+
+import java.util.HashMap;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import com.mcprohosting.plugins.mindcrack.Mindcrack;
+
+public class TeleportSigns {
+	private static HashMap<String, Location> signLocations = new HashMap<String, Location>();
+	
+	// run this once on startup to load the locations of the leaderboard signs from file
+	public static void initializeSigns() {
+		ConfigurationSection signs = Mindcrack.getPlugin().getConfig().getConfigurationSection("teleport-signs");
+		if (signs == null) {
+			Mindcrack.getPlugin().getLogger().severe("No teleport signs set");
+		} else {
+			for (String key : signs.getKeys(false)) {
+				ConfigurationSection section = signs.getConfigurationSection(key);
+				signLocations.put(key, new Location(Bukkit.getWorlds().get(0), section.getInt("x"), section.getInt("y"), section.getInt("z")));
+			}
+		}
+	}
+	
+	public static void updateSigns() {
+		for (String key : signLocations.keySet()) {
+			Block block = signLocations.get(key).getBlock();
+			if (block instanceof Sign) {
+				Sign sign = (Sign) block;
+				sign.setLine(0, "KingOfTheLadder");
+				sign.setLine(1, key);
+				//TODO: update with the number of players in the game server
+				sign.setLine(3, ChatColor.BLUE + "[Join]");
+			}
+		}
+	}
+	
+	public static void addSign(String server, Location location) {
+		signLocations.put(server, location);
+		saveSignsConfig();
+	}
+	
+	public static void removeSign(Location location) {
+		signLocations.values().remove(location);
+		saveSignsConfig();
+	}
+	
+	public static boolean isRegistered(Location location) {
+		return signLocations.values().contains(location);
+	}
+	
+	public static boolean isRegistered(String serverName) {
+		return signLocations.containsKey(serverName);
+	}
+	
+	public static String getServerName(Location location) {
+		for (String key : signLocations.keySet()) {
+			if (signLocations.get(key).equals(location)) {
+				return key;
+			}
+		}
+		
+		return null;
+	}
+	
+	private static void saveSignsConfig() {
+		ConfigurationSection signs = new YamlConfiguration();
+		
+		for (String key : signLocations.keySet()) {
+			Location location = signLocations.get(key);
+			ConfigurationSection sign = new YamlConfiguration();
+			sign.set("x", location.getBlockX());
+			sign.set("y", location.getBlockY());
+			sign.set("z", location.getBlockZ());
+			signs.set(key, sign);
+		}
+		
+		Mindcrack.getPlugin().getConfig().set("teleport-signs", signs);
+		Mindcrack.getPlugin().saveConfig();
+	}
+}
