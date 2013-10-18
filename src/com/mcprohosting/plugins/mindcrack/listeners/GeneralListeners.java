@@ -24,11 +24,11 @@ import org.bukkit.inventory.ItemStack;
 public class GeneralListeners implements Listener {
 	//Self explanatory, handles general operations.
 
+	@EventHandler
 	public void onDeath(PlayerDeathEvent event) {
 		if (Mindcrack.getPropConfig().getServerType().equals(ServerType.SURVIVAL)) {
-			if (event.getEntity().getKiller() instanceof Player) {
-				Player killer = event.getEntity().getKiller();
-
+			Player killer = event.getEntity().getKiller();
+			if (killer != null) {
 				UtilityMethods.addPoints(killer.getName(), 15);
 			}
 		}
