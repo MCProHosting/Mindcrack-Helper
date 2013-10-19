@@ -15,6 +15,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -107,6 +108,11 @@ public class GeneralListeners implements Listener {
 
 	@EventHandler
 	public void onRainStart(WeatherChangeEvent event) {
+		event.setCancelled(true);
+	}
+
+	@EventHandler
+	public void onPotionThrow(ProjectileLaunchEvent event) {
 		event.setCancelled(true);
 	}
 }
