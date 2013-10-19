@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
@@ -52,5 +53,10 @@ public class CreativeListener implements Listener {
 		if (event.getMaterial() == Material.MONSTER_EGG || event.getMaterial() == Material.MONSTER_EGGS) {
 			event.setCancelled(true);
 		}
+	}
+
+	@EventHandler
+	void onRedstone(BlockRedstoneEvent event) {
+		event.setNewCurrent(0);
 	}
 }
