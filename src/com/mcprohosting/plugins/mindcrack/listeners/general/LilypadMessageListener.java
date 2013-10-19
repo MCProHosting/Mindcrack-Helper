@@ -7,7 +7,6 @@ import lilypad.client.connect.api.event.MessageEvent;
 import java.io.UnsupportedEncodingException;
 
 public class LilypadMessageListener {
-
 	@EventListener
 	public void onMessage(MessageEvent event) {
 		if (event.getChannel().equals("mindcrack")) {

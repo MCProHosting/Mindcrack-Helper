@@ -1,7 +1,6 @@
 package com.mcprohosting.plugins.mindcrack.utilities;
 
 import com.mcprohosting.plugins.mindcrack.Mindcrack;
-import com.mcprohosting.plugins.mindcrack.ServerType;
 import com.mcprohosting.plugins.mindcrack.database.DatabaseManager;
 import lilypad.client.connect.api.request.RequestException;
 import lilypad.client.connect.api.request.impl.RedirectRequest;
@@ -23,17 +22,8 @@ public class UtilityMethods {
 
 	//Basic permissions, checks if the player should be able to break/place blocks.
 	public static boolean canChangeBlocks(Player player) {
-		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.SURVIVAL)) { //If the server is NOT survival
-			player.sendMessage(ChatColor.RED + "You don't have permission to break blocks here!");
-			return (player.isOp() || player.hasPermission("mindcrack.changeblocks"));
-		} else { //If the server IS survival
-			if (UtilityMethods.isNearSpawn(player)) {
-				player.sendMessage(ChatColor.RED + "You cannot build this close to spawn");
-				return false;
-			} else {
-				return true;
-			}
-		}
+		player.sendMessage(ChatColor.RED + "You don't have permission to break blocks here!");
+		return (player.isOp() || player.hasPermission("mindcrack.changeblocks"));
 	}
 
 	public static void redirectToServer(String server, final Player player) {
@@ -49,14 +39,6 @@ public class UtilityMethods {
 		} catch (InterruptedException e) {
 			player.sendMessage(ChatColor.RED.toString() + "That server is current not available: " + e.getCause() + "!");
 			Bukkit.getLogger().warning("RedirectRequest interrupted for player: " + player.getName());
-		}
-	}
-
-	public static boolean isNearSpawn(Player player) {
-		if (player.getLocation().distance(Mindcrack.getPropConfig().getSpawnLocation()) <= 100) {
-			return true;
-		} else {
-			return false;
 		}
 	}
 
