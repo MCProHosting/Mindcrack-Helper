@@ -10,6 +10,7 @@ import com.mcprohosting.plugins.mindcrack.listeners.general.LilypadMessageListen
 import com.mcprohosting.plugins.mindcrack.listeners.serverspecific.CreativeListener;
 import com.mcprohosting.plugins.mindcrack.listeners.serverspecific.LobbyListener;
 import com.mcprohosting.plugins.mindcrack.listeners.serverspecific.SurvivalListener;
+import com.mcprohosting.plugins.mindcrack.teleporters.TeleportSignListeners;
 import com.mcprohosting.plugins.mindcrack.teleporters.TeleportSigns;
 import com.mcprohosting.plugins.mindcrack.utilities.Configuration;
 import com.mcprohosting.plugins.mindcrack.utilities.LeaderboardSigns;
@@ -54,6 +55,7 @@ public class Mindcrack extends JavaPlugin {
 		if (propConfig.getServerType().equals(ServerType.LOBBY)) {
 			LeaderboardSigns.initializeSigns();
 			Bukkit.getPluginManager().registerEvents(new LeaderboardSignListeners(), this);
+			Bukkit.getPluginManager().registerEvents(new TeleportSignListeners(), this);
 			connect.registerEvents(new LilypadMessageListener());
 		}
 

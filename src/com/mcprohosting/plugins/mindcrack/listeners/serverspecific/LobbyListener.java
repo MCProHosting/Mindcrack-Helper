@@ -78,7 +78,9 @@ public class LobbyListener implements Listener {
 				UtilityMethods.redirectToServer("2-kotl-lobby", (Player) event.getWhoClicked());
 			}
 
-			event.setCancelled(true);
+			if (!event.getWhoClicked().isOp()) {
+				event.setCancelled(true);
+			}
 		}
 	}
 }
