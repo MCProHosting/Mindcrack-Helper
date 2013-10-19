@@ -13,28 +13,23 @@ public class Configuration {
 	private ServerType serverType;
 	private Location spawnLocation;
 	private String motd;
-	private int chatTime;
 
 	public Configuration(FileConfiguration config) {
 		Mindcrack.getPlugin().saveDefaultConfig();
 
 		this.spawnLocation = new Location(Bukkit.getWorld("world"), config.getDouble("spawn.x"), config.getDouble("spawn.y"), config.getDouble("spawn.z"), (float) config.getDouble("spawn.pitch"), (float) config.getDouble("spawn.yaw"));
 
-		if (config.getString("servertype").equalsIgnoreCase("mainlobby")) {
-			this.serverType = ServerType.MAINLOBBY;
-		} else if (config.getString("servertype").equalsIgnoreCase("otherlobby")) {
-			this.serverType = ServerType.OTHERLOBBY;
+		if (config.getString("servertype").equalsIgnoreCase("lobby")) {
+			this.serverType = ServerType.LOBBY;
 		} else if (config.getString("servertype").equalsIgnoreCase("game")) {
 			this.serverType = ServerType.GAME;
 		} else if (config.getString("servertype").equalsIgnoreCase("survival")) {
 			this.serverType = ServerType.SURVIVAL;
 		}
 
-		if (getServerType().equals(ServerType.MAINLOBBY)) {
+		if (getServerType().equals(ServerType.LOBBY)) {
 			this.motd = createMOTD(config.getStringList("motd"));
 		}
-
-		this.chatTime = config.getInt("chattime");
 	}
 
 	//Compiles a string for the message of the day based on a list of configuration values
@@ -62,9 +57,5 @@ public class Configuration {
 
 	public String getMotd() {
 		return motd;
-	}
-
-	public int getChatTime() {
-		return chatTime;
 	}
 }

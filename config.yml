@@ -1,5 +1,5 @@
-#Set the server type (mainlobby/otherlobby/game/survival)
-servertype: mainlobby
+#Set the server type (lobby/game/survival)
+servertype: lobby
 
 #Set the default spawn point
 spawn:
@@ -14,9 +14,6 @@ motd:
   - line1
   - line2
   - line3
-
-#Minumum time in-between chats (in seconds):
-chattime: 10
 
 #Manage the database settings:
 database:

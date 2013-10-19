@@ -1,6 +1,7 @@
 package com.mcprohosting.plugins.mindcrack.utilities;
 
 import com.mcprohosting.plugins.mindcrack.Mindcrack;
+import com.mcprohosting.plugins.mindcrack.ServerType;
 import com.mcprohosting.plugins.mindcrack.database.DatabaseManager;
 import lilypad.client.connect.api.request.RequestException;
 import lilypad.client.connect.api.request.impl.RedirectRequest;
@@ -22,7 +23,58 @@ public class UtilityMethods {
 
 	//Basic permissions, checks if the player should be able to break/place blocks.
 	public static boolean canChangeBlocks(Player player) {
-		return (player.isOp() || player.hasPermission("mindcrack.changeblocks"));
+		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.SURVIVAL)) { //If the server is NOT survival
+			player.sendMessage(ChatColor.RED + "You don't have permission to break blocks here!");
+			return (player.isOp() || player.hasPermission("mindcrack.changeblocks"));
+		} else { //If the server IS survival
+			if (UtilityMethods.isNearSpawn(player)) {
+				player.sendMessage(ChatColor.RED + "You cannot build this close to spawn");
+				return false;
+			} else {
+				return true;
+			}
+		}
+	}
+
+	public static void redirectToServer(String server, final Player player) {
+		try {
+			FutureResult<RedirectResult> futureResult = Mindcrack.getConnect().request(new RedirectRequest(server, player.getName()));
+			RedirectResult result = futureResult.await(5000L);
+			if (!result.getStatusCode().equals(StatusCode.SUCCESS)) {
+				player.sendMessage(ChatColor.RED.toString() + "That server is current not available: !");
+				Bukkit.getLogger().warning("RedirectRequest failed for player: " + player.getName());
+			}
+		} catch (RequestException e) {
+			player.sendMessage(ChatColor.RED.toString() + "That server is current not available: " + e.getCause() + "!");
+		} catch (InterruptedException e) {
+			player.sendMessage(ChatColor.RED.toString() + "That server is current not available: " + e.getCause() + "!");
+			Bukkit.getLogger().warning("RedirectRequest interrupted for player: " + player.getName());
+		}
+	}
+
+	public static boolean isNearSpawn(Player player) {
+		if (player.getLocation().distance(Mindcrack.getPropConfig().getSpawnLocation()) <= 100) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	//Getters
+	public static Inventory getCompassInventory() {
+		return compassInventory;
+	}
+	
+	public static int getPoints(String player) {
+		return DatabaseManager.getPoints(player);
+	}
+	
+	public static void addPoints(String player, int points) {
+		DatabaseManager.addPoints(player, points);
+	}
+	
+	public static List<String> getTopPlayers(int n) {
+		return DatabaseManager.getTopPlayers(n);
 	}
 
 	//ONLY RUN THIS ONCE AT STARTUP to create and statically store an instance of Inventory for later use with the compass.
@@ -71,38 +123,5 @@ public class UtilityMethods {
 		compassInventory.setItem(4, survivalItem2);  //Survival
 		compassInventory.setItem(5, ladderItem1);    //Ladder
 		compassInventory.setItem(6, ladderItem2);    //Ladder
-	}
-
-	public static void redirectToServer(String server, final Player player) {
-		try {
-			FutureResult<RedirectResult> futureResult = Mindcrack.getConnect().request(new RedirectRequest(server, player.getName()));
-			RedirectResult result = futureResult.await(5000L);
-			if (!result.getStatusCode().equals(StatusCode.SUCCESS)) {
-				player.sendMessage(ChatColor.RED.toString() + "That server is current not available: !");
-				Bukkit.getLogger().warning("RedirectRequest failed for player: " + player.getName());
-			}
-		} catch (RequestException e) {
-			player.sendMessage(ChatColor.RED.toString() + "That server is current not available: " + e.getCause() + "!");
-		} catch (InterruptedException e) {
-			player.sendMessage(ChatColor.RED.toString() + "That server is current not available: " + e.getCause() + "!");
-			Bukkit.getLogger().warning("RedirectRequest interrupted for player: " + player.getName());
-		}
-	}
-
-	//Getters
-	public static Inventory getCompassInventory() {
-		return compassInventory;
-	}
-	
-	public static int getPoints(String player) {
-		return DatabaseManager.getPoints(player);
-	}
-	
-	public static void addPoints(String player, int points) {
-		DatabaseManager.addPoints(player, points);
-	}
-	
-	public static List<String> getTopPlayers(int n) {
-		return DatabaseManager.getTopPlayers(n);
 	}
 }

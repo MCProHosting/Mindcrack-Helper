@@ -1,11 +1,10 @@
 package com.mcprohosting.plugins.mindcrack.listeners.general;
 
-import java.io.UnsupportedEncodingException;
-
 import com.mcprohosting.plugins.mindcrack.teleporters.TeleportSigns;
-
 import lilypad.client.connect.api.event.EventListener;
 import lilypad.client.connect.api.event.MessageEvent;
+
+import java.io.UnsupportedEncodingException;
 
 public class LilypadMessageListener {
 
@@ -17,7 +16,7 @@ public class LilypadMessageListener {
 			try {
 				message = event.getMessageAsString();
 			} catch (UnsupportedEncodingException e) {
-				
+				e.printStackTrace();
 			}
 			
 			if (message != null) {
