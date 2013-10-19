@@ -1,4 +1,4 @@
-package com.mcprohosting.plugins.mindcrack.listeners;
+package com.mcprohosting.plugins.mindcrack.listeners.general;
 
 import java.io.UnsupportedEncodingException;
 

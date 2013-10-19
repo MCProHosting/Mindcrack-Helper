@@ -1,4 +1,4 @@
-package com.mcprohosting.plugins.mindcrack.listeners;
+package com.mcprohosting.plugins.mindcrack.listeners.general;
 
 import com.mcprohosting.plugins.mindcrack.Mindcrack;
 import com.mcprohosting.plugins.mindcrack.ServerType;
@@ -85,9 +85,7 @@ public class GeneralListeners implements Listener {
 		}
 
 		//If this is the main lobby display MotD
-		if (Mindcrack.getPropConfig().getServerType().equals(ServerType.MAINLOBBY)) {
-			player.sendMessage(Mindcrack.getPropConfig().getMotd());
-		} else if (Mindcrack.getPropConfig().getServerType().equals(ServerType.GAME) || Mindcrack.getPropConfig().getServerType().equals(ServerType.SURVIVAL)) {
+		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.LOBBY)) {
 			player.sendMessage(ChatColor.GREEN + "To get back to the main lobby type /server hub or go through the portal!");
 		}
 
