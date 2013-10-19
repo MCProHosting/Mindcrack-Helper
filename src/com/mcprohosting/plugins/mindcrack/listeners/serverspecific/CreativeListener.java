@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
@@ -30,6 +31,11 @@ public class CreativeListener implements Listener {
 
 	@EventHandler
 	public void onHungerEvent(FoodLevelChangeEvent event) {
+		event.setCancelled(true);
+	}
+
+	@EventHandler
+	public void onSplashPotion(PotionSplashEvent event) {
 		event.setCancelled(true);
 	}
 }
