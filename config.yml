@@ -1,4 +1,4 @@
-#Set the server type (lobby/game/survival)
+#Set the server type (lobby/game/survival/creative)
 servertype: lobby
 
 #Set the default spawn point

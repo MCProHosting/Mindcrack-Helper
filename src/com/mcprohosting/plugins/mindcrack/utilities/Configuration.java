@@ -25,6 +25,8 @@ public class Configuration {
 			this.serverType = ServerType.GAME;
 		} else if (config.getString("servertype").equalsIgnoreCase("survival")) {
 			this.serverType = ServerType.SURVIVAL;
+		} else if (config.getString("servertype").equalsIgnoreCase("creative")) {
+			this.serverType = ServerType.CREATIVE;
 		}
 
 		if (getServerType().equals(ServerType.LOBBY)) {

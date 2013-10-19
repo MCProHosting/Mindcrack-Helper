@@ -29,6 +29,7 @@ public class Mindcrack extends JavaPlugin {
 	private static DatabaseManager databaseManager;
 
 	public void onEnable() {
+		getLogger().info("Starting Helper");
 		//Allow this to be access statically
 		plugin = this;
 
