@@ -11,8 +11,19 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.mcprohosting.plugins.mindcrack.utilities.UtilityMethods;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 public class TeleportSignListeners implements Listener {
+	@EventHandler
+	public void onMove(PlayerMoveEvent event) {
+		if (TeleportSigns.getSignLocations().size() > 0) {
+			if (event.getTo().getZ() < -173.5) {
+				event.getPlayer().sendMessage(ChatColor.RED + "You cannot go further than this.");
+				event.setCancelled(true);
+			}
+		}
+	}
+
 
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {

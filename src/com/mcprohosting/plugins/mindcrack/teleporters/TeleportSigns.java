@@ -27,6 +27,10 @@ public class TeleportSigns {
 			}
 		}
 	}
+
+	public static HashMap<String, Location> getSignLocations() {
+		return signLocations;
+	}
 	
 	public static void updateSigns() {
 		for (String key : signLocations.keySet()) {
