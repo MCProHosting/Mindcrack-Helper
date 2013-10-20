@@ -11,8 +11,6 @@ public class SurvivalListener implements Listener {
 	public void onDeath(PlayerDeathEvent event) {
 		Player killer = event.getEntity().getKiller();
 
-		event.setDeathMessage(null);
-
 		if (killer != null) {
 			UtilityMethods.addPoints(killer.getName(), 15);
 		}
