@@ -22,7 +22,6 @@ public class UtilityMethods {
 
 	//Basic permissions, checks if the player should be able to break/place blocks.
 	public static boolean canChangeBlocks(Player player) {
-		player.sendMessage(ChatColor.RED + "You don't have permission to break blocks here!");
 		return (player.isOp() || player.hasPermission("mindcrack.changeblocks"));
 	}
 

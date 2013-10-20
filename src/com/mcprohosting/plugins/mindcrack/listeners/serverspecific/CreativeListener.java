@@ -44,13 +44,13 @@ public class CreativeListener implements Listener {
 
 	@EventHandler
 	void onFirework(PlayerInteractEvent event) {
-		if (event.getMaterial() == Material.FIREWORK ) {
+		if (event.getMaterial().equals(Material.FIREWORK)) {
 			event.setCancelled(true);
 		}
-		if (event.getMaterial() == Material.POTION) {
+		if (event.getMaterial().equals(Material.POTION)) {
 			event.setCancelled(true);
 		}
-		if (event.getMaterial() == Material.MONSTER_EGG || event.getMaterial() == Material.MONSTER_EGGS) {
+		if (event.getMaterial().equals(Material.MONSTER_EGG) || event.getMaterial().equals(Material.MONSTER_EGGS)) {
 			event.setCancelled(true);
 		}
 	}

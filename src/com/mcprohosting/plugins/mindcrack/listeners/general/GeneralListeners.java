@@ -29,14 +29,20 @@ public class GeneralListeners implements Listener {
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event) {
 		if (Mindcrack.getPropConfig().getServerType().equals(ServerType.LOBBY)) {
-			event.setCancelled(!UtilityMethods.canChangeBlocks(event.getPlayer()));
+			if (!UtilityMethods.canChangeBlocks(event.getPlayer())) {
+				event.getPlayer().sendMessage(ChatColor.RED + "You don't have permission to break blocks here!");
+				event.setCancelled(true);
+			}
 		}
 	}
 
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
 		if (Mindcrack.getPropConfig().getServerType().equals(ServerType.LOBBY)) {
-			event.setCancelled(!UtilityMethods.canChangeBlocks(event.getPlayer()));
+			if (!UtilityMethods.canChangeBlocks(event.getPlayer())) {
+				event.getPlayer().sendMessage(ChatColor.RED + "You don't have permission to break blocks here!");
+				event.setCancelled(true);
+			}
 		}
 	}
 
@@ -47,7 +53,9 @@ public class GeneralListeners implements Listener {
 
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent event) {
-		event.setCancelled(!ChatFilters.chatAllowed(event.getPlayer(), event.getMessage()));
+		if (!ChatFilters.chatAllowed(event.getPlayer(), event.getMessage())) {
+			event.setCancelled(true);
+		}
 	}
 
 	@EventHandler
