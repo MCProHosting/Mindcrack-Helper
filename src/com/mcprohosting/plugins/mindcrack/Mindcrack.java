@@ -14,6 +14,7 @@ import com.mcprohosting.plugins.mindcrack.teleporters.TeleportSignListeners;
 import com.mcprohosting.plugins.mindcrack.teleporters.TeleportSigns;
 import com.mcprohosting.plugins.mindcrack.utilities.Configuration;
 import com.mcprohosting.plugins.mindcrack.utilities.LeaderboardSigns;
+import com.mcprohosting.plugins.mindcrack.utilities.SaveUtility;
 import com.mcprohosting.plugins.mindcrack.utilities.UtilityMethods;
 
 import lilypad.client.connect.api.Connect;
@@ -77,6 +78,11 @@ public class Mindcrack extends JavaPlugin {
 					TeleportSigns.updateSigns();
 				}
 			}, 60, 60);
+		}
+
+		// Setup auto save on creative
+		if (propConfig.getServerType().equals(ServerType.CREATIVE)) {
+			getServer().getScheduler().scheduleSyncRepeatingTask(this, new SaveUtility(), 20, 20 * 60 * 15);
 		}
 
 		//Done!
