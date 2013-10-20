@@ -27,14 +27,14 @@ public class GeneralListeners implements Listener {
 
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event) {
-		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.CREATIVE)) {
+		if (Mindcrack.getPropConfig().getServerType().equals(ServerType.LOBBY)) {
 			event.setCancelled(!UtilityMethods.canChangeBlocks(event.getPlayer()));
 		}
 	}
 
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
-		if (!Mindcrack.getPropConfig().getServerType().equals(ServerType.CREATIVE)) {
+		if (Mindcrack.getPropConfig().getServerType().equals(ServerType.LOBBY)) {
 			event.setCancelled(!UtilityMethods.canChangeBlocks(event.getPlayer()));
 		}
 	}
